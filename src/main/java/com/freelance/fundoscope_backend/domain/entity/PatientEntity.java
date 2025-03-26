@@ -3,7 +3,10 @@ package com.freelance.fundoscope_backend.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -29,12 +32,25 @@ public class PatientEntity {
 
     private String state;
 
+    private String status;
+
+    private String type;
+
+    @Column(name = "date_of_birth")
     private String dateOfBirth;
 
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(columnDefinition = "TEXT")
     private String imageBase64;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<CaseRecordEntity> caseRecords;

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -25,5 +26,10 @@ public class CaseRecordPersistenceAdapter implements CaseRecordPersistencePort {
     @Override
     public List<CaseRecordEntity> findAll() {
         return caseRecordRepository.findAll();
+    }
+
+    @Override
+    public Optional<CaseRecordEntity> findById(Long id) {
+        return caseRecordRepository.findById(id);
     }
 }

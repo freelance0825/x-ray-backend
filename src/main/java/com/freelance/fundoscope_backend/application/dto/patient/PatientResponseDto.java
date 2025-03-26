@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -25,10 +27,18 @@ public class PatientResponseDto {
 
     private String state;
 
+    private String status;
+
+    private String type;
+
     private String dateOfBirth;
 
     private String phoneNumber;
 
     private String imageBase64;
+
+    private LocalDateTime updatedAt;
+
+    private LocalDateTime createdAt;
 
 }

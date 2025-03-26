@@ -20,6 +20,12 @@ public class PatientRequestDto {
 
     private String gender;
 
+    private String state;
+
+    private String status;
+
+    private String type;
+
     private String address;
 
     private String dateOfBirth;

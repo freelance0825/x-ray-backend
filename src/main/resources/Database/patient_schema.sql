@@ -15,7 +15,11 @@ CREATE TABLE IF NOT EXISTS patient (
     address TEXT,
     email VARCHAR(255),
     state VARCHAR(255),
+    status VARCHAR(255),
+    type VARCHAR(255),
     date_of_birth VARCHAR(50),
     phone_number VARCHAR(50),
-    image_base64 TEXT
+    image_base64 TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

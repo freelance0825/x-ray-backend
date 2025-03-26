@@ -1,6 +1,5 @@
 package com.freelance.fundoscope_backend.infrastructure.adapter.internal;
 
-import com.freelance.fundoscope_backend.domain.entity.DoctorEntity;
 import com.freelance.fundoscope_backend.domain.entity.PatientEntity;
 import com.freelance.fundoscope_backend.domain.repository.PatientRepository;
 import com.freelance.fundoscope_backend.infrastructure.port.PatientPersistencePort;
