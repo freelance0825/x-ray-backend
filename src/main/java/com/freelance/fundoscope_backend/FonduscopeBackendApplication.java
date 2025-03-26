@@ -1,13 +1,13 @@
-package com.freelance.thunderscope_scalable_backend;
+package com.freelance.fundoscope_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ThunderscopeScalableBackendApplication {
+public class FonduscopeBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ThunderscopeScalableBackendApplication.class, args);
+		SpringApplication.run(FonduscopeBackendApplication.class, args);
 	}
 
 }

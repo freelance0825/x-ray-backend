@@ -1,10 +1,10 @@
-package com.freelance.thunderscope_scalable_backend;
+package com.freelance.fundoscope_backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ThunderscopeScalableBackendApplicationTests {
+class FonduscopeBackendApplicationTests {
 
 	@Test
 	void contextLoads() {
