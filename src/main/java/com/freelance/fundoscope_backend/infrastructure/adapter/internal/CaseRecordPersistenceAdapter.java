@@ -32,4 +32,14 @@ public class CaseRecordPersistenceAdapter implements CaseRecordPersistencePort {
     public Optional<CaseRecordEntity> findById(Long id) {
         return caseRecordRepository.findById(id);
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return caseRecordRepository.existsById(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        caseRecordRepository.deleteById(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.freelance.fundoscope_backend.application.service;
 
+import com.freelance.fundoscope_backend.application.dto.patient.PatientRequestDto;
 import com.freelance.fundoscope_backend.application.dto.patient.PatientResponseDto;
 import com.freelance.fundoscope_backend.domain.entity.PatientEntity;
 import com.freelance.fundoscope_backend.domain.mapper.PatientMapper;
@@ -47,54 +48,6 @@ public class PatientService {
         return patientMapper.toDto(patientPersistencePort.save(patient));
     }
 
-
-    public PatientResponseDto updateUser(Long id, String name, String address, String gender,
-                                         String email, String state, String status, String type , String age,
-                                         String dob, String phoneNumber, MultipartFile imageFile) throws IOException {
-
-        log.info("Updating user with ID: {}", id);
-
-        try {
-
-            PatientEntity existingUser = patientPersistencePort.findById(id).orElse(null);
-
-            // Check if user exists
-            if (existingUser == null) {
-                throw new IOException("User not found for ID: " + id);
-            }
-
-            // Convert the new image to Base64 string only if an image is provided
-            String imageBase64 = null;
-            if (imageFile != null && !imageFile.isEmpty()) {
-                imageBase64 = encodeImageToBase64(imageFile);
-            }
-
-            // Update the fields of the existing patient entity
-            existingUser.setName(name);
-            existingUser.setAddress(address);
-            existingUser.setGender(gender);
-            existingUser.setEmail(email);
-            existingUser.setState(state);
-            existingUser.setStatus(status);
-            existingUser.setType(type);
-            existingUser.setAge(age);
-            existingUser.setDateOfBirth(dob);
-            existingUser.setPhoneNumber(phoneNumber);
-
-            // If a new image is provided, update the imageBase64 field
-            if (imageBase64 != null) {
-                existingUser.setImageBase64(imageBase64);
-            }
-
-            return patientMapper.toDto(patientPersistencePort.save(existingUser));
-
-        } catch (Exception e) {
-            log.error("Error updating user: {}", e.getMessage());
-            throw new IOException(e.getMessage());
-        }
-    }
-
-
     public List<PatientResponseDto> getAllPatients() {
         List<PatientEntity> patientList = patientPersistencePort.findAll();
         return patientMapper.toDtoList(patientList);
@@ -115,6 +68,37 @@ public class PatientService {
         } catch (Exception e) {
             log.error("Error deleting patient with ID: {}: {}", id, e.getMessage());
             throw new IOException("Error deleting patient: " + e.getMessage());
+        }
+    }
+
+    public PatientResponseDto updateUser(Long id, PatientRequestDto request) throws IOException {
+
+        log.info("Updating user with ID: {}", id);
+
+        try {
+
+            PatientEntity existingUser = patientPersistencePort.findById(id).orElse(null);
+            if (existingUser == null) {
+                throw new IOException("User not found for ID: " + id);
+            }
+
+            existingUser.setName(request.getName());
+            existingUser.setAddress(request.getAddress());
+            existingUser.setGender(request.getGender());
+            existingUser.setEmail(request.getEmail());
+            existingUser.setState(request.getState());
+            existingUser.setStatus(request.getStatus());
+            existingUser.setType(request.getType());
+            existingUser.setAge(request.getAge());
+            existingUser.setDateOfBirth(request.getDateOfBirth());
+            existingUser.setPhoneNumber(request.getPhoneNumber());
+            existingUser.setImageBase64(request.getImageBase64());
+
+            return patientMapper.toDto(patientPersistencePort.save(existingUser));
+
+        } catch (Exception e) {
+            log.error("Error updating user: {}", e.getMessage());
+            throw new IOException(e.getMessage());
         }
     }
 

@@ -46,6 +46,37 @@ public class CaseRecordController {
     }
 
 
+    // Endpoint to retrieve a Case by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<CaseRecordListResponseDto> getCase(@PathVariable Long id) {
+        CaseRecordListResponseDto response = caseRecordService.getCaseById(id);
+        if (response == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAppointment(@PathVariable Long id) {
+        try {
+            caseRecordService.deleteCase(id);
+            return ResponseEntity.ok("Case with ID: " + id + " has been deleted successfully.");
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Error deleting Case: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CaseRecordListResponseDto> updateCase(@PathVariable Long id,
+                                                                @RequestBody CaseRecordRequestDto request) {
+        try {
+            CaseRecordListResponseDto updatedCaseRecord = caseRecordService.updateCase(id, request);
+            return ResponseEntity.ok(updatedCaseRecord);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     // Endpoint to retrieve all Cases
     @GetMapping("/list")
     public ResponseEntity<List<CaseRecordListResponseDto>> getAllCases() {

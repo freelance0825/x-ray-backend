@@ -26,6 +26,8 @@ public class PatientRequestDto {
 
     private String type;
 
+    private String email;
+
     private String address;
 
     private String dateOfBirth;

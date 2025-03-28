@@ -1,4 +1,4 @@
--- Create the sequence with a start value of 1000
+-- Create the sequence for generating doctor IDs (starting with 1000)
 CREATE SEQUENCE IF NOT EXISTS doctor_sequence
     START WITH 1000
     INCREMENT BY 1
@@ -6,7 +6,7 @@ CREATE SEQUENCE IF NOT EXISTS doctor_sequence
     NO MAXVALUE
     CACHE 1;
 
--- Create the doctor table with the sequence linked correctly
+-- Create the doctor table with required columns
 CREATE TABLE IF NOT EXISTS doctor (
     id BIGINT PRIMARY KEY DEFAULT nextval('doctor_sequence'),
     email VARCHAR(255) NOT NULL UNIQUE,

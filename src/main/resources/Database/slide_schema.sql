@@ -1,4 +1,4 @@
--- Create the sequence for generating user IDs (starting with 1000)
+-- Create the sequence for generating slide IDs (starting with 1000)
 CREATE SEQUENCE IF NOT EXISTS slide_sequence
     START WITH 1000
     INCREMENT BY 1
