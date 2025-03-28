@@ -28,8 +28,8 @@ public class PatientController {
                                                          @RequestParam("gender") String gender,
                                                          @RequestParam("email") String email,
                                                          @RequestParam("state") String state,
-                                                         @RequestParam("status") String status,
-                                                         @RequestParam("type") String type,
+                                                         @RequestParam(value = "status", required = false) String status,
+                                                         @RequestParam(value = "type", required = false) String type,
                                                          @RequestParam("age") String age,
                                                          @RequestParam("dob") String dob,
                                                          @RequestParam("phoneNumber") String phoneNumber,
@@ -65,7 +65,6 @@ public class PatientController {
         }
     }
 
-
     @GetMapping("/patients")
     public ResponseEntity<List<PatientResponseDto>> getAllPatients() {
         List<PatientResponseDto> users = patientService.getAllPatients();
@@ -81,6 +80,5 @@ public class PatientController {
             return ResponseEntity.status(500).body("Error deleting user: " + e.getMessage());
         }
     }
-
 
 }
