@@ -71,7 +71,9 @@ public class PatientService {
         }
     }
 
-    public PatientResponseDto updateUser(Long id, PatientRequestDto request) throws IOException {
+    public PatientResponseDto updateUser(Long id, String name, String address, String gender,
+                                         String email, String state,String status, String type , String age,
+                                         String dob, String phoneNumber, MultipartFile imageFile) throws IOException {
 
         log.info("Updating user with ID: {}", id);
 
@@ -82,17 +84,20 @@ public class PatientService {
                 throw new IOException("User not found for ID: " + id);
             }
 
-            existingUser.setName(request.getName());
-            existingUser.setAddress(request.getAddress());
-            existingUser.setGender(request.getGender());
-            existingUser.setEmail(request.getEmail());
-            existingUser.setState(request.getState());
-            existingUser.setStatus(request.getStatus());
-            existingUser.setType(request.getType());
-            existingUser.setAge(request.getAge());
-            existingUser.setDateOfBirth(request.getDateOfBirth());
-            existingUser.setPhoneNumber(request.getPhoneNumber());
-            existingUser.setImageBase64(request.getImageBase64());
+            // Convert image to Base64 string
+            String imageBase64 = encodeImageToBase64(imageFile);
+
+            existingUser.setName(name);
+            existingUser.setAddress(address);
+            existingUser.setGender(gender);
+            existingUser.setEmail(email);
+            existingUser.setState(state);
+            existingUser.setStatus(status);
+            existingUser.setType(type);
+            existingUser.setAge(age);
+            existingUser.setDateOfBirth(dob);
+            existingUser.setPhoneNumber(phoneNumber);
+            existingUser.setImageBase64(imageBase64);
 
             return patientMapper.toDto(patientPersistencePort.save(existingUser));
 
@@ -101,7 +106,6 @@ public class PatientService {
             throw new IOException(e.getMessage());
         }
     }
-
 
     // Helper method to encode an image file to Base64
     private String encodeImageToBase64(MultipartFile imageFile) throws IOException {

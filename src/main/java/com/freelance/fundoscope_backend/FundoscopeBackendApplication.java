@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FonduscopeBackendApplication {
+public class FundoscopeBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FonduscopeBackendApplication.class, args);
+		SpringApplication.run(FundoscopeBackendApplication.class, args);
 	}
 
 }

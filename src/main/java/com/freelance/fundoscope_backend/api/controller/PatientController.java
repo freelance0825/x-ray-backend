@@ -61,10 +61,21 @@ public class PatientController {
 
     @PutMapping("/patients/{id}")
     public ResponseEntity<PatientResponseDto> updatePatient(@PathVariable Long id,
-                                                            @RequestBody PatientRequestDto request) throws IOException {
+                                                            @RequestParam(value = "name", required = false) String name,
+                                                            @RequestParam(value = "address", required = false) String address,
+                                                            @RequestParam(value = "gender", required = false) String gender,
+                                                            @RequestParam(value = "email", required = false) String email,
+                                                            @RequestParam(value = "state", required = false) String state,
+                                                            @RequestParam(value = "status", required = false) String status,
+                                                            @RequestParam(value = "type", required = false) String type,
+                                                            @RequestParam(value = "age", required = false) String age,
+                                                            @RequestParam(value = "dob", required = false) String dob,
+                                                            @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+                                                            @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
 
         try {
-            PatientResponseDto updatedUser = patientService.updateUser(id, request);
+            PatientResponseDto updatedUser = patientService.updateUser(id, name, address, gender, email,
+                    state, status, type, age, dob, phoneNumber, image);
             return ResponseEntity.ok(updatedUser);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
