@@ -17,6 +17,3 @@ CREATE TABLE IF NOT EXISTS doctor (
     birth_date VARCHAR(50) NOT NULL,
     signature TEXT
 );
-
--- Ensure the sequence is properly owned by the ID column
-ALTER SEQUENCE doctor_sequence OWNED BY doctor.id;
