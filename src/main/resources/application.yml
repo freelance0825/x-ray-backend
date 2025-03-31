@@ -1,9 +1,9 @@
 spring:
   application:
-    name: thunderscope-scalable-backend
+    name: fundoscope-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/thunder_db2
+    url: jdbc:postgresql://localhost:5432/thunder_db
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
