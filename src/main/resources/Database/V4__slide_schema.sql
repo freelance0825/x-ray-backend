@@ -14,9 +14,10 @@ CREATE TABLE IF NOT EXISTS slide (
     microscopic_dc TEXT,
     diagnosis TEXT,
     ai_insights TEXT,
-    specimen_type VARCHAR(255) NOT NULL,
-    collection_site VARCHAR(255) NOT NULL,
-    clinical_data VARCHAR(255) NOT NULL,
+    specimen_type VARCHAR(255),
+    collection_site VARCHAR(255),
+    clinical_data VARCHAR(255),
     report_id VARCHAR(255),
+    date_and_time VARCHAR(255),
     FOREIGN KEY (case_record_id) REFERENCES case_record(id) ON DELETE CASCADE
 );

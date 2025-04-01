@@ -1,8 +1,12 @@
 package com.freelance.fundoscope_backend.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -34,16 +38,20 @@ public class SlideEntity {
     @Column(name ="ai_insights",columnDefinition = "TEXT")
     private String aiInsights;
 
-    @Column(name = "specimen_type",nullable = false)
+    @Column(name = "specimen_type")
     private String specimenType;
 
-    @Column(name = "collection_site", nullable = false)
+    @Column(name = "collection_site")
     private String collectionSite;
 
-    @Column(name = "clinical_data",nullable = false)
+    @Column(name = "clinical_data")
     private String clinicalData;
 
     @Column(name = "report_id")
     private String reportId;
 
+    @UpdateTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mma")
+    @Column(name = "date_and_time")
+    private String dateAndTime;
 }

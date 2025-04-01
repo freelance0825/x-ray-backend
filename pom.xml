@@ -38,6 +38,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Flyway for database migrations -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>9.10.1</version> <!-- Choose the version that fits your project -->
+        </dependency>
+
         <!-- Lombok Dependency for reducing boilerplate code -->
         <dependency>
             <groupId>org.projectlombok</groupId>

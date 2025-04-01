@@ -11,10 +11,10 @@ import com.freelance.fundoscope_backend.infrastructure.port.DoctorPersistencePor
 import com.freelance.fundoscope_backend.infrastructure.port.SlidePersistencePort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Base64;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -60,6 +60,7 @@ public class SlideService {
         slideEntity.setSpecimenType(request.getSpecimenType());
         slideEntity.setCollectionSite(request.getCollectionSite());
         slideEntity.setReportId(request.getReportId());
+        slideEntity.setDateAndTime(request.getDateAndTime());
 
         return slideMapper.toDto(slidePersistencePort.save(slideEntity));
 
@@ -135,9 +136,12 @@ public class SlideService {
     }
 
     // Helper method to encode an image file to Base64
-    private String encodeImageToBase64(MultipartFile imageFile) throws IOException {
-        byte[] imageBytes = imageFile.getBytes();
-        return Base64.encodeBase64String(imageBytes);  // Return Base64 string
+    public String encodeImageToBase64(MultipartFile imageFile) throws IOException {
+        if (imageFile != null && !imageFile.isEmpty()) {
+            byte[] imageBytes = imageFile.getBytes();
+            return Base64.getEncoder().encodeToString(imageBytes);  // Convert to Base64
+        }
+        return null;  // Return null if the file is not provided
     }
 
 }

@@ -1,5 +1,6 @@
 package com.freelance.fundoscope_backend.application.dto.slide;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.freelance.fundoscope_backend.application.dto.caserecord.CaseRecordListResponseDto;
@@ -32,5 +33,8 @@ public class SlideResponseDto {
     private String clinicalData;
 
     private String reportId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mma")
+    private String dateAndTime;
 
 }
