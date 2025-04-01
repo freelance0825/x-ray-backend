@@ -1,6 +1,5 @@
 package com.freelance.fundoscope_backend.api.controller;
 
-import com.freelance.fundoscope_backend.application.dto.patient.PatientRequestDto;
 import com.freelance.fundoscope_backend.application.dto.patient.PatientResponseDto;
 import com.freelance.fundoscope_backend.application.service.PatientService;
 import lombok.RequiredArgsConstructor;

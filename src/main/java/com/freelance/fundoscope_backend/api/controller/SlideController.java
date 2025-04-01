@@ -20,23 +20,12 @@ public class SlideController {
 
     private final SlideService slideService;
 
+    // based64 IMPLEM
     @PostMapping
-    public ResponseEntity<SlideResponseDto> createSlide(@RequestBody SlideRequestDto request) throws IOException {
-        try {
-            // Convert input data into DTO object
-            SlideRequestDto formData = new SlideRequestDto();
-            formData.setQrCode(request.getQrCode());
-            formData.setMainImage(request.getMainImage());
-            formData.setAiInsights(request.getAiInsights());
-            formData.setDiagnosis(request.getDiagnosis());
-            formData.setClinicalData(request.getClinicalData());
-            formData.setCaseRecordId(request.getCaseRecordId());
-            formData.setSpecimenType(request.getSpecimenType());
-            formData.setCollectionSite(request.getCollectionSite());
-            formData.setReportId(request.getReportId());
+    public ResponseEntity<SlideResponseDto> createSlide(@ModelAttribute SlideRequestDto request) throws IOException {
 
-            // Call service method
-            SlideResponseDto response = slideService.saveSlides(formData);
+        try {
+            SlideResponseDto response = slideService.saveSlides(request);
             log.info("Slide created successfully: {}", response);
 
             return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -84,8 +73,9 @@ public class SlideController {
         }
     }
 
+    // TO DO: CURRENTT IMPLEM IS URL
     @PutMapping("/{id}")
-    public ResponseEntity<SlideResponseDto> updateSlide(@PathVariable Long id, @RequestBody SlideRequestDto request) {
+    public ResponseEntity<SlideResponseDto> updateSlide(@PathVariable Long id, @ModelAttribute SlideRequestDto request) {
         try {
             SlideResponseDto updatedSlide = slideService.updateSlide(id, request);
             return ResponseEntity.ok(updatedSlide);

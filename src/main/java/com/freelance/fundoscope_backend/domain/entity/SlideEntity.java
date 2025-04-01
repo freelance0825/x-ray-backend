@@ -19,27 +19,31 @@ public class SlideEntity {
     @JoinColumn(name = "case_record_id", nullable = false)
     private CaseRecordEntity caseRecord;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "main_image",columnDefinition = "TEXT")
     private String mainImage;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "qr_code",columnDefinition = "TEXT")
     private String qrCode;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "diagnosis", columnDefinition = "TEXT")
     private String diagnosis;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "microscopic_dc",columnDefinition = "TEXT")
+    private String microscopicDc;
+
+    @Column(name ="ai_insights",columnDefinition = "TEXT")
     private String aiInsights;
 
-    @Column(nullable = false)
+    @Column(name = "specimen_type",nullable = false)
     private String specimenType;
 
-    @Column(nullable = false)
+    @Column(name = "collection_site", nullable = false)
     private String collectionSite;
 
-    @Column(nullable = false)
+    @Column(name = "clinical_data",nullable = false)
     private String clinicalData;
 
+    @Column(name = "report_id")
     private String reportId;
 
 }

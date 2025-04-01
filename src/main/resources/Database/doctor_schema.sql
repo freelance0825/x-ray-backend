@@ -8,7 +8,7 @@ CREATE SEQUENCE IF NOT EXISTS doctor_sequence
 
 -- Create the doctor table with required columns
 CREATE TABLE IF NOT EXISTS doctor (
-    id BIGINT PRIMARY KEY DEFAULT nextval('doctor_sequence'),
+    id INT PRIMARY KEY DEFAULT nextval('doctor_sequence'),
     email VARCHAR(255) NOT NULL UNIQUE,
     name VARCHAR(255) DEFAULT NULL,
     password VARCHAR(255) NOT NULL,

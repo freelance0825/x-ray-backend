@@ -3,14 +3,18 @@ package com.freelance.fundoscope_backend.application.service;
 import com.freelance.fundoscope_backend.application.dto.slide.SlideRequestDto;
 import com.freelance.fundoscope_backend.application.dto.slide.SlideResponseDto;
 import com.freelance.fundoscope_backend.domain.entity.CaseRecordEntity;
+import com.freelance.fundoscope_backend.domain.entity.DoctorEntity;
 import com.freelance.fundoscope_backend.domain.entity.SlideEntity;
 import com.freelance.fundoscope_backend.domain.mapper.SlideMapper;
 import com.freelance.fundoscope_backend.infrastructure.port.CaseRecordPersistencePort;
+import com.freelance.fundoscope_backend.infrastructure.port.DoctorPersistencePort;
 import com.freelance.fundoscope_backend.infrastructure.port.SlidePersistencePort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -26,18 +30,31 @@ public class SlideService {
 
     private final CaseRecordPersistencePort caseRecordPersistencePort;
 
+    private final DoctorPersistencePort doctorPersistencePort;
+
     private final SlideMapper slideMapper;
 
     public SlideResponseDto saveSlides(SlideRequestDto request) throws IOException {
 
+        // Retrieve CaseRecordEntity by caseRecordId
         CaseRecordEntity caseRecordEntity = caseRecordPersistencePort.findById(request.getCaseRecordId())
                 .orElseThrow(() -> new IllegalArgumentException("Case not found"));
 
+        // Retrieve DoctorEntity associated with the CaseRecordEntity
+        DoctorEntity doctorEntity = caseRecordEntity.getDoctor();
+
+        // If there's a doctorSignature in the request, save it to the DoctorEntity
+        if (request.getDoctorSignature() != null) {
+            doctorEntity.setSignature(encodeImageToBase64(request.getDoctorSignature()));
+            doctorPersistencePort.save(doctorEntity); // Persist the updated doctor signature
+        }
+
         SlideEntity slideEntity = new SlideEntity();
-        slideEntity.setMainImage(request.getMainImage());
-        slideEntity.setQrCode(request.getQrCode());
+        slideEntity.setMainImage(encodeImageToBase64(request.getMainImage()));
+        slideEntity.setQrCode(encodeImageToBase64(request.getQrCode()));
         slideEntity.setAiInsights(request.getAiInsights());
         slideEntity.setDiagnosis(request.getDiagnosis());
+        slideEntity.setMicroscopicDc(request.getMicroscopicDc());
         slideEntity.setClinicalData(request.getClinicalData());
         slideEntity.setCaseRecord(caseRecordEntity);
         slideEntity.setSpecimenType(request.getSpecimenType());
@@ -93,8 +110,8 @@ public class SlideService {
             CaseRecordEntity caseRecordEntity = caseRecordPersistencePort.findById(request.getCaseRecordId())
                     .orElseThrow(() -> new IllegalArgumentException("Case not found"));
 
-            existingSlide.setMainImage(request.getMainImage());
-            existingSlide.setQrCode(request.getQrCode());
+            existingSlide.setMainImage(encodeImageToBase64(request.getMainImage()));
+            existingSlide.setQrCode(encodeImageToBase64(request.getQrCode()));
             existingSlide.setAiInsights(request.getAiInsights());
             existingSlide.setDiagnosis(request.getDiagnosis());
             existingSlide.setClinicalData(request.getClinicalData());
@@ -115,6 +132,12 @@ public class SlideService {
         log.info("Fetching all slides...");
         List<SlideEntity> slides = slidePersistencePort.findAll();
         return slideMapper.toDtoList(slides);
+    }
+
+    // Helper method to encode an image file to Base64
+    private String encodeImageToBase64(MultipartFile imageFile) throws IOException {
+        byte[] imageBytes = imageFile.getBytes();
+        return Base64.encodeBase64String(imageBytes);  // Return Base64 string
     }
 
 }

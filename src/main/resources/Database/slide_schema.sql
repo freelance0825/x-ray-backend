@@ -9,9 +9,9 @@ CREATE SEQUENCE IF NOT EXISTS slide_sequence
 -- Create the slide table with required columns
 CREATE TABLE IF NOT EXISTS slide (
     id INT DEFAULT nextval('slide_sequence') PRIMARY KEY,
-    case_record_id BIGINT NOT NULL,
+    case_record_id INT NOT NULL,
     main_image TEXT,
-    qr_code TEXT,
+    microscopic_dc TEXT,
     diagnosis TEXT,
     ai_insights TEXT,
     specimen_type VARCHAR(255) NOT NULL,

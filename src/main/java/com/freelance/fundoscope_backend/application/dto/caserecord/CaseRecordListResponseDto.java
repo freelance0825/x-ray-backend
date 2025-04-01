@@ -30,7 +30,4 @@ public class CaseRecordListResponseDto {
 
     private String type;
 
-
-
-
 }

@@ -21,6 +21,8 @@ public class SlideResponseDto {
 
     private String diagnosis;
 
+    private String microscopicDc;
+
     private String aiInsights;
 
     private String specimenType;
@@ -30,4 +32,5 @@ public class SlideResponseDto {
     private String clinicalData;
 
     private String reportId;
+
 }
