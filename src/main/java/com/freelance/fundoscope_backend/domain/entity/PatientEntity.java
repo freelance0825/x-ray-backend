@@ -52,7 +52,8 @@ public class PatientEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    // Cascade ALL ensures that when a patient is deleted, related case records are deleted
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CaseRecordEntity> caseRecords;
 
 }

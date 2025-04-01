@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -38,5 +40,8 @@ public class CaseRecordEntity {
 
     @Column(nullable = false)
     private String type;
+
+    @OneToMany(mappedBy = "caseRecord", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SlideEntity> slides;
 
 }

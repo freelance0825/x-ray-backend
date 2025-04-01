@@ -19,7 +19,7 @@ public class SlideEntity {
     @SequenceGenerator(name = "slide_sequence", sequenceName = "slide_sequence", allocationSize = 1, initialValue = 1000)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL) // Cascade delete
     @JoinColumn(name = "case_record_id", nullable = false)
     private CaseRecordEntity caseRecord;
 
