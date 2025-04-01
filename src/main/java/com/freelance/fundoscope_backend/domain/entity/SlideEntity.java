@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
-
 @Setter
 @Getter
 @Entity
@@ -38,13 +36,13 @@ public class SlideEntity {
     @Column(name ="ai_insights",columnDefinition = "TEXT")
     private String aiInsights;
 
-    @Column(name = "specimen_type")
+    @Column(name = "specimen_type", nullable = false)
     private String specimenType;
 
-    @Column(name = "collection_site")
+    @Column(name = "collection_site", nullable = false)
     private String collectionSite;
 
-    @Column(name = "clinical_data")
+    @Column(name = "clinical_data", nullable = false)
     private String clinicalData;
 
     @Column(name = "report_id")

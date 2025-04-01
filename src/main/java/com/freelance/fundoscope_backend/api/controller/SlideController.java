@@ -73,7 +73,6 @@ public class SlideController {
         }
     }
 
-    // TO DO: CURRENTT IMPLEM IS URL
     @PutMapping("/{id}")
     public ResponseEntity<SlideResponseDto> updateSlide(@PathVariable Long id, @ModelAttribute SlideRequestDto request) {
         try {

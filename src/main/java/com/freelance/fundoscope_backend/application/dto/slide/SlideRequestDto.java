@@ -18,24 +18,23 @@ public class SlideRequestDto {
 
     private MultipartFile qrCode;
 
-    private String diagnosis;
-
     private String microscopicDc;
+
+    private String diagnosis;
 
     private String aiInsights;
 
     private String specimenType;
 
-    private String clinicalData;
-
     private String collectionSite;
 
     private String reportId;
+
+    private String clinicalData;
 
     private MultipartFile doctorSignature;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mma")
     private String dateAndTime;
-
 
 }

@@ -14,9 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.Base64;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,21 +40,12 @@ public class SlideService {
         CaseRecordEntity caseRecordEntity = caseRecordPersistencePort.findById(request.getCaseRecordId())
                 .orElseThrow(() -> new IllegalArgumentException("Case not found"));
 
-        // Retrieve DoctorEntity associated with the CaseRecordEntity
-        DoctorEntity doctorEntity = caseRecordEntity.getDoctor();
-
-        // If there's a doctorSignature in the request, save it to the DoctorEntity
-        if (request.getDoctorSignature() != null) {
-            doctorEntity.setSignature(encodeImageToBase64(request.getDoctorSignature()));
-            doctorPersistencePort.save(doctorEntity); // Persist the updated doctor signature
-        }
-
         SlideEntity slideEntity = new SlideEntity();
         slideEntity.setMainImage(encodeImageToBase64(request.getMainImage()));
         slideEntity.setQrCode(encodeImageToBase64(request.getQrCode()));
         slideEntity.setAiInsights(request.getAiInsights());
-        slideEntity.setDiagnosis(request.getDiagnosis());
         slideEntity.setMicroscopicDc(request.getMicroscopicDc());
+        slideEntity.setDiagnosis(request.getDiagnosis());
         slideEntity.setClinicalData(request.getClinicalData());
         slideEntity.setCaseRecord(caseRecordEntity);
         slideEntity.setSpecimenType(request.getSpecimenType());
@@ -109,18 +100,23 @@ public class SlideService {
             }
 
             CaseRecordEntity caseRecordEntity = caseRecordPersistencePort.findById(request.getCaseRecordId())
-                    .orElseThrow(() -> new IllegalArgumentException("Case not found"));
+                    .orElseThrow(() -> new IllegalArgumentException("Case record not found"));
 
-            existingSlide.setMainImage(encodeImageToBase64(request.getMainImage()));
-            existingSlide.setQrCode(encodeImageToBase64(request.getQrCode()));
-            existingSlide.setAiInsights(request.getAiInsights());
-            existingSlide.setDiagnosis(request.getDiagnosis());
-            existingSlide.setClinicalData(request.getClinicalData());
+            DoctorEntity doctorEntity = caseRecordEntity.getDoctor();
+
+            // If there's a doctorSignature in the request, save it to the DoctorEntity
+            if (request.getDoctorSignature() != null) {
+                doctorEntity.setSignature(encodeImageToBase64(request.getDoctorSignature()));
+                doctorPersistencePort.save(doctorEntity); // Persist the updated doctor signature
+            }
+
+            // Use the helper method to update the fields in existingSlide if they are present in the request
+            updateFieldsIfPresent(request, existingSlide);
+
+            // Set the caseRecord (always required)
             existingSlide.setCaseRecord(caseRecordEntity);
-            existingSlide.setSpecimenType(request.getSpecimenType());
-            existingSlide.setCollectionSite(request.getCollectionSite());
-            existingSlide.setReportId(request.getReportId());
 
+            // Save and return the updated Slide
             return slideMapper.toDto(slidePersistencePort.save(existingSlide));
 
         } catch (Exception e) {
@@ -134,6 +130,48 @@ public class SlideService {
         List<SlideEntity> slides = slidePersistencePort.findAll();
         return slideMapper.toDtoList(slides);
     }
+
+
+    private void updateFieldsIfPresent(SlideRequestDto request, SlideEntity existingSlide) {
+        try {
+            // Update the fields only if the field is present in the request (i.e., non-null)
+            if (request.getMainImage() != null) {
+                existingSlide.setMainImage(encodeImageToBase64(request.getMainImage()));
+            }
+            if (request.getQrCode() != null) {
+                existingSlide.setQrCode(encodeImageToBase64(request.getQrCode()));
+            }
+            if (request.getMicroscopicDc() != null) {
+                existingSlide.setMicroscopicDc(request.getMicroscopicDc());
+            }
+            if (request.getDiagnosis() != null) {
+                existingSlide.setDiagnosis(request.getDiagnosis());
+            }
+            if (request.getAiInsights() != null) {
+                existingSlide.setAiInsights(request.getAiInsights());
+            }
+            if (request.getSpecimenType() != null) {
+                existingSlide.setSpecimenType(request.getSpecimenType());
+            }
+            if (request.getCollectionSite() != null) {
+                existingSlide.setCollectionSite(request.getCollectionSite());
+            }
+            if (request.getReportId() != null) {
+                existingSlide.setReportId(request.getReportId());
+            }
+            if (request.getClinicalData() != null) {
+                existingSlide.setClinicalData(request.getClinicalData());
+            }
+            if (request.getDateAndTime() != null) {
+                existingSlide.setDateAndTime(request.getDateAndTime());
+            }
+
+        } catch (IOException e) {
+            log.error("Error encoding image to Base64", e);
+            throw new RuntimeException("Error encoding image to Base64", e);
+        }
+    }
+
 
     // Helper method to encode an image file to Base64
     public String encodeImageToBase64(MultipartFile imageFile) throws IOException {
