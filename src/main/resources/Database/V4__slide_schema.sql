@@ -10,13 +10,14 @@ CREATE SEQUENCE IF NOT EXISTS slide_sequence
 CREATE TABLE IF NOT EXISTS slide (
     id INT DEFAULT nextval('slide_sequence') PRIMARY KEY,
     case_record_id INT NOT NULL,
-    main_image TEXT,
+    main_image TEXT NOT NULL,
+    qr_code TEXT NOT NULL,
     microscopic_dc TEXT,
     diagnosis TEXT,
     ai_insights TEXT,
     specimen_type VARCHAR(255),
-    collection_site VARCHAR(255),
-    clinical_data VARCHAR(255),
+    collection_site VARCHAR(255) NOT NULL,
+    clinical_data VARCHAR(255) NOT NULL,
     report_id VARCHAR(255),
     date_and_time VARCHAR(255),
     FOREIGN KEY (case_record_id) REFERENCES case_record(id) ON DELETE CASCADE

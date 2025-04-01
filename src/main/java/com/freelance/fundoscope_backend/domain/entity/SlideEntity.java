@@ -29,11 +29,11 @@ public class SlideEntity {
     @Column(name = "qr_code",columnDefinition = "TEXT")
     private String qrCode;
 
-    @Column(name = "diagnosis", columnDefinition = "TEXT")
-    private String diagnosis;
-
     @Column(name = "microscopic_dc",columnDefinition = "TEXT")
     private String microscopicDc;
+
+    @Column(name = "diagnosis", columnDefinition = "TEXT")
+    private String diagnosis;
 
     @Column(name ="ai_insights",columnDefinition = "TEXT")
     private String aiInsights;
