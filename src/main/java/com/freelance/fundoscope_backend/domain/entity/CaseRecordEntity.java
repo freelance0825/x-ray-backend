@@ -23,6 +23,8 @@ public class CaseRecordEntity {
     @JoinColumn(name = "patient_id", nullable = false)
     private PatientEntity patient;
 
+    private String todo;
+
     @Column(nullable = false)
     private String date;
 

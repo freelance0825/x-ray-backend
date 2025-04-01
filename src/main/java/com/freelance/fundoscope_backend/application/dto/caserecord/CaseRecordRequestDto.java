@@ -11,6 +11,8 @@ public class CaseRecordRequestDto {
 
     private Long patientId;
 
+    private String todo;
+
     private String date;
 
     private String time;

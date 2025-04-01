@@ -28,6 +28,7 @@ public class CaseRecordController {
             CaseRecordRequestDto formData = new CaseRecordRequestDto();
             formData.setDoctorId(request.getDoctorId());
             formData.setPatientId(request.getPatientId());
+            formData.setTodo(request.getTodo());
             formData.setDate(request.getDate());
             formData.setTime(request.getTime());
             formData.setYear(request.getYear());

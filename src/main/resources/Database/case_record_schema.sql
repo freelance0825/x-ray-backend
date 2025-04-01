@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS case_record (
     id INT DEFAULT nextval('case_record_sequence') PRIMARY KEY,
     doctor_id BIGINT NOT NULL,
     patient_id BIGINT NOT NULL,
+    todo VARCHAR(1000),
     date VARCHAR(50) NOT NULL,
     time VARCHAR(50) NOT NULL,
     year VARCHAR(10) NOT NULL,

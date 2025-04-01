@@ -18,6 +18,8 @@ public class CaseRecordListResponseDto {
 
     private PatientDto patient;
 
+    private String todo;
+
     private String date;
 
     private String time;
