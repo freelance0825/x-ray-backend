@@ -45,6 +45,13 @@
             <version>9.10.1</version> <!-- Choose the version that fits your project -->
         </dependency>
 
+        <!--   Swagger     -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+
         <!-- Lombok Dependency for reducing boilerplate code -->
         <dependency>
             <groupId>org.projectlombok</groupId>

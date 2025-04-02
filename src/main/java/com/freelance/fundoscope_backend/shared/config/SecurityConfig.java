@@ -22,6 +22,12 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    private static final String[] AUTH_WHITELIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
+
     @Lazy
     private final UserDetailsServiceImpl userDetailsService;
 
@@ -40,6 +46,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers("/api/doctors/add",
                                 "/api/doctors/login")
                         .permitAll()
