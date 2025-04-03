@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: fundoscope-backend
@@ -16,12 +19,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
-    enabled: true  # Enable Flyway for database migrations
-    locations: classpath:Database  # Point to the Database folder for migration scripts
-    baseline-on-migrate: true  # If the schema is empty or not yet initialized, Flyway will apply the migrations
-    sql-migration-prefix: V  # Prefix for the migration scripts (e.g., V1__create_table.sql, V2__add_column.sql)
-    sql-migration-separator: "__"  # Separator between version and description in migration file names (default: __)
-    placeholder-replacement: true  # Enables the use of placeholders in SQL scripts
+    enabled: true
+    locations: classpath:Database
+    baseline-on-migrate: true
+    sql-migration-prefix: V
+    sql-migration-separator: "__"
+    placeholder-replacement: true
 
   sql:
     init:
