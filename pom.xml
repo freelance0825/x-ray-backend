@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.freelance</groupId>
-    <artifactId>thunderscope-scalable-backend</artifactId>
+    <artifactId>fundoscope-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>fundoscope-backend</name>
     <description>Fundoscope Service</description>
