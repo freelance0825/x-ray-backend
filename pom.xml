@@ -42,8 +42,9 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>9.10.1</version> <!-- Choose the version that fits your project -->
+            <version>9.10.1</version>
         </dependency>
+
 
         <!--   Swagger     -->
         <dependency>
@@ -124,11 +125,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
