@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.freelance</groupId>
-    <artifactId>fundoscope-backend</artifactId>
+    <artifactId>x-ray-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>fundoscope-backend</name>
-    <description>Fundoscope Service</description>
+    <name>x-ray-backend</name>
+    <description>X-ray Service</description>
 
     <properties>
         <java.version>21</java.version>

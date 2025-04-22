@@ -3,10 +3,10 @@ server:
 
 spring:
   application:
-    name: fundoscope-backend
+    name: x-ray-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/thunder_db
+    url: jdbc:postgresql://localhost:5432/xray_db
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
