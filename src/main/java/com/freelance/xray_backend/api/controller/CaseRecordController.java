@@ -46,7 +46,6 @@ public class CaseRecordController {
         }
     }
 
-
     // Endpoint to retrieve a Case by ID
     @GetMapping("/{id}")
     public ResponseEntity<CaseRecordListResponseDto> getCase(@PathVariable Long id) {
