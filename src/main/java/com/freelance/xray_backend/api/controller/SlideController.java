@@ -63,7 +63,7 @@ public class SlideController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteSlideRecprd(@PathVariable Long id) {
+    public ResponseEntity<String> deleteSlideRecord(@PathVariable Long id) {
         slideService.deleteSlideRecord(id);
         log.info("Slide record with ID: {} has been deleted successfully.", id);
 
