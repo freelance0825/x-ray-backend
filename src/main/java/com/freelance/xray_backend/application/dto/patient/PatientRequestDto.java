@@ -29,6 +29,6 @@ public class PatientRequestDto {
 
     private String phoneNumber;
 
-    private MultipartFile imageBase64;
+    private MultipartFile image;
 
 }

@@ -23,7 +23,7 @@ public abstract class PatientMapperDecorator implements PatientMapper {
 
         PatientEntity patientEntity = delegate.toEntity(patientRequestDto);
         patientEntity.setDateOfBirth((patientRequestDto.getDob() != null && !patientRequestDto.getDob().isEmpty()) ? patientRequestDto.getDob() : null);
-        patientEntity.setImageBase64(patientRequestDto.getImageBase64() != null ? encodeImageToBase64(patientRequestDto.getImageBase64()) : null);
+        patientEntity.setImageBase64(patientRequestDto.getImage() != null ? encodeImageToBase64(patientRequestDto.getImage()) : null);
 
         return patientEntity;
     }
@@ -37,7 +37,7 @@ public abstract class PatientMapperDecorator implements PatientMapper {
 
         delegate.updatePatientFromDto(dto, entity);
         entity.setDateOfBirth(dto.getDob() != null && !dto.getDob().isEmpty() ? dto.getDob() : entity.getDateOfBirth());
-        entity.setImageBase64(dto.getImageBase64() != null ? encodeImageToBase64(dto.getImageBase64()) : null);
+        entity.setImageBase64(dto.getImage() != null ? encodeImageToBase64(dto.getImage()) : null);
     }
 
     @Override

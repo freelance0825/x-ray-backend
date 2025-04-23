@@ -20,5 +20,6 @@ public interface PatientMapper {
 
     PatientResponseDto toDto(PatientEntity patientEntity);
 
+    @Mapping(target = "imageBase64", source = "imageBase64")
     List<PatientResponseDto> toDtoList(List<PatientEntity> patientEntities);
 }
