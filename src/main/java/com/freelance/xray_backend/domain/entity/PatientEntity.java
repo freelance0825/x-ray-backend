@@ -1,17 +1,15 @@
 package com.freelance.xray_backend.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
+@Data
 @Table(name = "patient")
 public class PatientEntity {
 

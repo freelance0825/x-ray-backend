@@ -3,18 +3,16 @@ package com.freelance.xray_backend.application.dto.slide;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.freelance.xray_backend.application.dto.caserecord.CaseRecordListResponseDto;
-import lombok.Getter;
-import lombok.Setter;
+import com.freelance.xray_backend.application.dto.caserecord.CaseRecordsResponseDto;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SlideResponseDto {
 
     private Long id;
 
-    private CaseRecordListResponseDto caseRecord;
+    private CaseRecordsResponseDto caseRecord;
 
     private String mainImage;
 

@@ -2,7 +2,7 @@ package  com.freelance.xray_backend.api.controller;
 
 import com.freelance.xray_backend.application.dto.slide.SlideRequestDto;
 import com.freelance.xray_backend.application.dto.slide.SlideResponseDto;
-import com.freelance.xray_backend.application.service.SlideService;
+import com.freelance.xray_backend.application.service.slide.SlideService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,70 +23,60 @@ public class SlideController {
     // based64 IMPLEM
     @PostMapping
     public ResponseEntity<SlideResponseDto> createSlide(@ModelAttribute SlideRequestDto request) throws IOException {
+        SlideResponseDto saveSlides = slideService.saveSlides(request);
+        log.info("Slide created successfully: {}", saveSlides);
 
-        try {
-            SlideResponseDto response = slideService.saveSlides(request);
-            log.info("Slide created successfully: {}", response);
+        return ResponseEntity.ok(saveSlides);
 
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch (Exception e) {
-            log.error("Error creating Slide", e);
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
     }
 
-    // Endpoint to retrieve a Case by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<SlideResponseDto> updateSlide(@PathVariable Long id,
+                                                        @ModelAttribute SlideRequestDto request) throws IOException {
+
+        SlideResponseDto updatedSlide = slideService.updateSlide(id, request);
+        log.info("Slide details updated successfully: {}", updatedSlide);
+
+        return ResponseEntity.ok(updatedSlide);
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SlideResponseDto> getSlide(@PathVariable Long id) {
         SlideResponseDto response = slideService.getSlideById(id);
-        if (response == null) {
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/case/{id}")
     public ResponseEntity<List<SlideResponseDto>> getSlidesByCaseId(@PathVariable Long id) {
         List<SlideResponseDto> slideList = slideService.getSlidesByCaseId(id);
-        if (slideList == null) {
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok(slideList);
     }
 
     @GetMapping("/case/{id}/count")
     public ResponseEntity<Long> getSlideCountByCaseId(@PathVariable Long id) {
         List<SlideResponseDto> slideList = slideService.getSlidesByCaseId(id);
-        if (slideList == null) {
-            return ResponseEntity.notFound().build();
-        }
+
         return ResponseEntity.ok((long) slideList.size());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAppointment(@PathVariable Long id) {
-        try {
-            slideService.deleteSlides(id);
-            return ResponseEntity.ok("Slide with ID: " + id + " has been deleted successfully.");
-        } catch (IOException e) {
-            return ResponseEntity.status(500).body("Error deleting Slide: " + e.getMessage());
-        }
+    public ResponseEntity<String> deleteSlideRecprd(@PathVariable Long id) {
+        slideService.deleteSlideRecord(id);
+        log.info("Slide record with ID: {} has been deleted successfully.", id);
+
+        return ResponseEntity.ok("Slide record with ID: " + id + " has been deleted successfully.");
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SlideResponseDto> updateSlide(@PathVariable Long id, @ModelAttribute SlideRequestDto request) {
-        try {
-            SlideResponseDto updatedSlide = slideService.updateSlide(id, request);
-            return ResponseEntity.ok(updatedSlide);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
 
     @GetMapping("/list")
     public ResponseEntity<List<SlideResponseDto>> getAllSlides() {
         List<SlideResponseDto> slides = slideService.getAllSlides();
+
         return ResponseEntity.ok(slides);
     }
 
 }
+

@@ -1,10 +1,8 @@
 package com.freelance.xray_backend.application.dto.caserecord;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class CaseRecordRequestDto {
 
     private Long doctorId;

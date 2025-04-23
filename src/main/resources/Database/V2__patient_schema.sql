@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS patient (
     age VARCHAR(10),
     gender VARCHAR(50),
     address TEXT,
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     state VARCHAR(255),
     status VARCHAR(255),
     type VARCHAR(255),

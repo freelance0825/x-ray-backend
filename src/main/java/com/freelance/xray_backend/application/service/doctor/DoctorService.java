@@ -1,11 +1,11 @@
-package com.freelance.xray_backend.application.service;
+package com.freelance.xray_backend.application.service.doctor;
 
 import com.freelance.xray_backend.application.dto.doctor.DoctorRequestDto;
 import com.freelance.xray_backend.application.dto.doctor.DoctorResponseDto;
 import com.freelance.xray_backend.application.dto.doctor.LoginRequestDto;
 import com.freelance.xray_backend.application.dto.doctor.LoginResponseDto;
 import com.freelance.xray_backend.domain.entity.DoctorEntity;
-import com.freelance.xray_backend.domain.mapper.DoctorMapper;
+import com.freelance.xray_backend.domain.mapper.doctor.DoctorMapper;
 import com.freelance.xray_backend.infrastructure.port.DoctorPersistencePort;
 import com.freelance.xray_backend.shared.config.JwtUtil;
 import com.freelance.xray_backend.shared.exception.EmailAlreadyExistException;
@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
@@ -46,28 +47,22 @@ public class DoctorService {
         // Hash the password
         String hashedPassword = passwordEncoder.encode(request.getPassword());
 
-        DoctorEntity doctorEntity = new DoctorEntity();
-        doctorEntity.setName(request.getName());
-        doctorEntity.setEmail(request.getEmail());
-        doctorEntity.setPassword(hashedPassword);
-        doctorEntity.setPhoneNumber(request.getPhoneNumber());
-        doctorEntity.setSpecialist(request.getSpecialist());
-        doctorEntity.setBirthDate(request.getBirthDate());
+        DoctorEntity doctorEntity = doctorMapper.toEntity(request);
+        doctorEntity.setPassword(hashedPassword); // Set the hashed password directly on the entity
 
         String token = jwtUtil.generateToken(doctorEntity.getEmail());
 
         DoctorEntity savedDoctorEntity = doctorPersistencePort.save(doctorEntity);
-        DoctorResponseDto response = doctorMapper.mapToDto(savedDoctorEntity);
+        DoctorResponseDto response = doctorMapper.toDto(savedDoctorEntity);
         response.setToken(token);
 
         return ResponseEntity.ok(response);
     }
 
-
     @Description("Doctors Login")
     public ResponseEntity<LoginResponseDto> login(LoginRequestDto request) {
 
-        if (ObjectUtils.isEmpty(request)) {
+        if (ObjectUtils.isEmpty(request) || !StringUtils.hasText(request.getEmail()) || !StringUtils.hasText(request.getPassword())) {
             throw new InvalidRequestException("Email and password must be provided.");
         }
 
@@ -76,30 +71,25 @@ public class DoctorService {
         Optional<DoctorEntity> doctorOptional = doctorPersistencePort.findByEmail(request.getEmail());
 
         if (doctorOptional.isEmpty()) {
-            String errorMessage = "User not found with email: " + request.getEmail();
-            log.warn(errorMessage);
-            throw new UserNotFoundException(errorMessage);
+            throw new UserNotFoundException("User not found with email: " + request.getEmail());
         }
 
         DoctorEntity doctorEntity = doctorOptional.get();
         log.info("User found: {}", doctorEntity.getEmail());
 
         // Compare passwords using BCrypt (this since password is hashed)
-        if (BCrypt.checkpw(request.getPassword(), doctorEntity.getPassword())) {
-            log.info("Password is correct for user: {}", request.getEmail());
-        } else {
-            String errorMessage = "Incorrect password for user with email: " + request.getEmail();
-            log.warn(errorMessage);
-            throw new InvalidCredentialsException(errorMessage);
+        if (!BCrypt.checkpw(request.getPassword(), doctorEntity.getPassword())) {
+            throw new InvalidCredentialsException("Incorrect password for user with email: " + request.getEmail());
         }
+
+        log.info("Password is correct for user: {}", request.getEmail());
 
         String token = jwtUtil.generateToken(doctorEntity.getEmail());
 
-        LoginResponseDto response = doctorMapper.toDto(doctorEntity);
+        LoginResponseDto response = doctorMapper.toLoginDto(doctorEntity);
         response.setToken(token);
         log.info("Login successful for user: {}", request.getEmail());
 
         return ResponseEntity.ok(response);
     }
-
 }

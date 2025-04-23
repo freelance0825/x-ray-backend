@@ -2,14 +2,10 @@ package com.freelance.xray_backend.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @Table(name = "doctor", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class DoctorEntity {
 

@@ -3,15 +3,9 @@ package com.freelance.xray_backend.application.dto.doctor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-import java.time.LocalDate;
-
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DoctorResponseDto {
 

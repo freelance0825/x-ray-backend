@@ -3,13 +3,9 @@ package com.freelance.xray_backend.application.dto.doctor;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 public class LoginRequestDto {
 
    /* Phone number pattern to match international phone number format (e.g., +1234567890)

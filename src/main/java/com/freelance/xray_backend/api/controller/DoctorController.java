@@ -4,7 +4,7 @@ import com.freelance.xray_backend.application.dto.doctor.DoctorRequestDto;
 import com.freelance.xray_backend.application.dto.doctor.DoctorResponseDto;
 import com.freelance.xray_backend.application.dto.doctor.LoginRequestDto;
 import com.freelance.xray_backend.application.dto.doctor.LoginResponseDto;
-import com.freelance.xray_backend.application.service.DoctorService;
+import com.freelance.xray_backend.application.service.doctor.DoctorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

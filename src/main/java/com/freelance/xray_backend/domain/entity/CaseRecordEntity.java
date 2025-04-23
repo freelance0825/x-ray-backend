@@ -1,14 +1,12 @@
 package com.freelance.xray_backend.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "case_record")
 public class CaseRecordEntity {
 

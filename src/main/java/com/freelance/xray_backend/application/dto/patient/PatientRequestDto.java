@@ -2,23 +2,20 @@ package com.freelance.xray_backend.application.dto.patient;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PatientRequestDto {
 
-    private Long id;
-
     private String name;
 
-    private String age;
+    private String address;
 
     private String gender;
+
+    private String email;
 
     private String state;
 
@@ -26,14 +23,12 @@ public class PatientRequestDto {
 
     private String type;
 
-    private String email;
+    private String age;
 
-    private String address;
-
-    private String dateOfBirth;
+    private String dob;
 
     private String phoneNumber;
 
-    private String imageBase64;
+    private MultipartFile imageBase64;
 
 }

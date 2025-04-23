@@ -2,13 +2,10 @@ package com.freelance.xray_backend.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.Data;
 
-@Setter
-@Getter
 @Entity
+@Data
 @Table(name = "slide")
 public class SlideEntity {
 
@@ -48,7 +45,6 @@ public class SlideEntity {
     @Column(name = "report_id")
     private String reportId;
 
-    @UpdateTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy hh:mma")
     @Column(name = "date_and_time")
     private String dateAndTime;

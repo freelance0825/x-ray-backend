@@ -1,12 +1,8 @@
 package com.freelance.xray_backend.application.dto.doctor;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class LoginResponseDto {
 
     private Long id;
