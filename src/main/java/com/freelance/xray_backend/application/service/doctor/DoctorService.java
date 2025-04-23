@@ -71,6 +71,7 @@ public class DoctorService {
         Optional<DoctorEntity> doctorOptional = doctorPersistencePort.findByEmail(request.getEmail());
 
         if (doctorOptional.isEmpty()) {
+            log.warn("User not found with email: {}", request.getEmail());
             throw new UserNotFoundException("User not found with email: " + request.getEmail());
         }
 
